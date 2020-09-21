@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang = "ja">
+  <head>
+    <meta charset = "utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>🐱今日の下郷甚句セレクト☆彡　今日の運勢付き！</title>
+    <style type="text/css">
+h1 
+  {margin: 0;
+    position:relative;
+    left:200px;
+    font-weight: bold;
+    font-size: 50px;
+	color: teal;}
+
+
+
+canvas {
+position: absolute;
+left: 20px;
+top: 20px;
+}
+
+#jinkuhonbun {
+position: absolute;
+margin :130px 100px 0px 90px;
+padding:0px; 
+width:180px;
+height:120px;
+line-height:40px;
+color:gray;
+font-size:20px;
+text-align: center;
+}   
+      
+#unsei_hyoji{
+position: absolute;
+margin :350px 100px 0px 90px; 
+padding:0px; 
+width:180px;
+height:120px;
+line-height:30px;
+color:gray;
+font-size:20px;
+  text-align: center;}
+  
+#kaeru{
+position: absolute;
+margin :430px 100px 0px 230px;
+padding:0px; 
+width:50px;
+height:50px;
+text-align: center;
+opacity: 0.6;
+  } 
+  
+#copyright{
+position: absolute;
+margin :520px 100px 0px 130px;
+padding:0px; 
+width:200px;
+height:200px;
+text-align: center;  
+opacity: 0.6;
+      }
+
+#gouinfo{
+position: relative;
+left:150px;
+margin :580px 50px 0px 30px;
+padding:0px; 
+  border:0px;
+width:400px;
+height:100px;
+text-align: center;  
+opacity: 0.6;
+  
+      }   
+
+
+      
+#button_bgm2
+{
+position: absolute;
+margin :720px 50px 0px 90px;
+padding:0px; 
+width:300px;
+height:100px;
+text-align: center;  
+opacity: 0.9;      
+      } 
+
+    
+#canvas_potision
+{position: relative;
+left:200px;
+        
+      }
+      
+  body {
+  margin: 0;
+  padding: 0;
+}
+
+ #fullscreen{
+  width: 100vw;
+  height: 200vh;
+  background:  #FFFAFA;
+}    
+   
+     
+      
+      
+      
+      
+      
+/*画面の横幅600ｐｘ以下で適応*/
+@media screen and (max-width:600px){
+
+  
+  
+  
+  h1 
+  {position:relative;
+    left:10px;
+    font-weight: bold;
+    font-size: 40px;
+	color: teal;}
+
+
+
+
+     
+.container {
+position:relative;
+top:;
+left:10;
+}
+
+canvas {
+position: absolute;
+left: 20px;
+top: 20px;
+}
+
+  
+
+#gouinfo{
+position: relative;
+left:0px;
+margin :580px 50px 0px 0px;
+padding:0px; 
+  border:0px;
+width:400px;
+height:100px;
+text-align: center;  
+opacity: 0.6;
+  
+      }   
+
+
+      
+    
+#canvas_potision
+{position: relative;
+left:0px;
+        
+      }
+  
+        
+      }
+      
+      
+</style>
+    
+    
+  </head>
+  <body>
+
+     <audio autoplay id="omikujiBGM" loop>
+   <source src="img/bgm_maoudamashii_ethnic32.m4a" type="audio/mp3">
+   <source src="img/bgm_maoudamashii_ethnic32.ogg" type="audio/ogg">
+    <p>残念、ご使用のブラウザでは音が出ません…</p>
+</audio>   
+<div id ="fullscreen">
+<h1>下郷甚句おみくじ</h1>
+
+    
+<div id="button_bgm2"> <input id="bgm_btn2" type="button" value="BGMの停止" onclick="stopBGM()"> </div>   
+
+  
+  
+<div id="canvas_potision">
+    <canvas id="canvas" width="1000" height="700"></canvas>
+  <h2 id="jinkuhonbun">🖱画面をクリック<br>or<br>タッチ☝<br></h2>
+<h2 id="unsei_hyoji">♪タッチ　タッチ♪<br>
+  ♪ここにタッチ♪<br></h2>
+<img id ="kaeru" src="img/kaeru(1).png">
+  
+  <h6 id="copyright">本作のイラストと音源<br>
+    かえる絵:『ダ鳥獣戯画』様<br>効果音：『魔王魂』様</h6>  
+  
+  </div>
+ 
+  <h3 id="gouinfo">☟「下郷甚句」歌詞はコッチでチェケラ！☟<br>
+  「ごう」しもごうまちフリーマガジン <br>  
+　<a href="http://goshimogo.livedoor.blog/archives/22181245.html"> 下郷甚句歌詞（下郷甚句保存会ver）</a><br>
+    <a href="http://goshimogo.livedoor.blog/archives/22181187.html">下郷甚句歌詞（大内ver）</a><br>
+    </h3>
+    
+
+  
+    </div>
+    
+    
+    
+<script>
+  document.addEventListener('click', jidousaisei);
+function jidousaisei() {
+  document.getElementById('omikujiBGM').play();
+  document.removeEventListener('click', jidousaisei);
+  
+  
+} 
+  
+  
+document.addEventListener('click',oto);
+document.addEventListener('click',kakikae);
+  
+  
+  
+  
+ 
+//音量調整
+let volume= document.getElementById("omikujiBGM");
+  volume.volume=0.1;
+  
+  
+  
+  function restartBGM()
+  {
+    document.getElementById("omikujiBGM").play();
+  }
+  
+  
+  function stopBGM()
+    {
+    document.getElementById("omikujiBGM").pause();
+        document.removeEventListener('click', jidousaisei);
+  
+    }
+  
+  var canvas = document.getElementById("canvas");  
+  var context = canvas.getContext('2d');
+    
+//おみくじ札の中身
+  context.strokeStyle= "black";
+  context.fillStyle = "#FFFFF0";
+  context.lineWidth = 0.5;
+  context.shadowColor ="#CCFFFF";
+  context.shadowBlur =60;
+
+//札
+context.fillRect(45, 30, 240, 450);
+context.strokeRect(45, 30, 240, 450);
+
+//太い赤枠
+  context.strokeStyle= "#CC3333";
+  context.lineWidth = 5;
+  context.strokeRect(55, 40, 220, 430);
+
+//細い赤枠
+  context.strokeStyle= "#CC3333";
+  context.lineWidth = 2;
+  context.strokeRect(60, 45, 210, 420);
+  
+//上の中線
+  context.strokeStyle= "#CC3333";
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(62,90);
+  context.lineTo(268,90);
+  context.stroke();
+
+//真ん中の上の中線
+  context.strokeStyle= "#CC3333";
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(62,290);
+  context.lineTo(268,290);
+  context.stroke();
+
+//真ん中の下の中線
+  context.strokeStyle= "#CC3333";
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(62,320);
+  context.lineTo(268,320);
+  context.stroke();
+  
+  
+  
+//運勢
+  context.font = "35px 'ＭＳ ゴシック'";
+  context.fillStyle= "#CC3333";
+  context.fillText("下 郷 甚 句",67, 80);
+  
+  
+  
+//下郷甚句の枠内
+　context.font = "25px 'ＭＳ ゴシック'";
+  context.fillStyle= "#CC3333";
+  context.fillText("運　　勢",115, 315);
+  
+  
+
+
+//カエル画像の配列
+let kaeru_gazo= new Array();
+
+kaeru_gazo[1] = new Image();
+kaeru_gazo[1].src = "img/kaeru(1).png";
+kaeru_gazo[2] = new Image();
+kaeru_gazo[2].src = "img/kaeru(2).png";
+kaeru_gazo[3] = new Image();
+kaeru_gazo[3].src = "img/kaeru(3).png";
+kaeru_gazo[4] = new Image();
+kaeru_gazo[4].src = "img/kaeru(4).png";
+kaeru_gazo[5] = new Image();
+kaeru_gazo[5].src = "img/kaeru(5).png";
+kaeru_gazo[6] = new Image();
+kaeru_gazo[6].src = "img/kaeru(6).png";
+kaeru_gazo[7] = new Image();
+kaeru_gazo[7].src = "img/kaeru(7).png";
+kaeru_gazo[8] = new Image();
+kaeru_gazo[8].src = "img/jisama.png";
+kaeru_gazo[9] = new Image();
+kaeru_gazo[9].src = "img/basama.png";
+kaeru_gazo[10] = new Image();
+kaeru_gazo[10].src = "img/hanasaka.png";
+kaeru_gazo[11] = new Image();
+kaeru_gazo[11].src = "img/hime.png";
+kaeru_gazo[12] = new Image();
+kaeru_gazo[12].src = "img/sakura.png";
+kaeru_gazo[13] = new Image();
+kaeru_gazo[13].src = "img/hutamata.png";
+  
+ //おみくじの音
+  function oto() {
+　　document.getElementById("omikujiOto").play();
+  var onryou = document.getElementById("omikujiOto");
+　　onryou.volume = 0.9;
+}
+    
+  //ボタンを押すと甚句と運勢が別々にランダムで出力   
+    function kakikae()
+{
+    let rand =Math.floor(Math.random()*34);
+  {    
+    {if(rand==0)
+    {document.getElementById("jinkuhonbun").innerHTML="花の盛りに<br>芯止められて <br>咲くに 咲かれぬ <br>タバコ花";
+    }
+    if(rand==1){document.getElementById("jinkuhonbun").innerHTML="朝の出がけに<br>どの山見ても<br>霧のかからぬ<br>山はない";}
+    if(rand==2){document.getElementById("jinkuhonbun").innerHTML="声で聞き取れ<br>姿で見とれ<br>たとえ 知れても<br>名わ呼ぶな";}
+     if(rand==3){document.getElementById("jinkuhonbun").innerHTML="色で 迷わす<br>スイカでさえも<br>中にゃ苦労の<br>種がある";}
+       if(rand==4){document.getElementById("jinkuhonbun").innerHTML="月は まん丸<br>踊りも 丸い<br>わしと お前も<br>丸い仲";}
+       if(rand==5){document.getElementById("jinkuhonbun").innerHTML="踊り踊らば<br>下郷の甚句<br>みんな輪になれ<br>踊りましょう";}
+       if(rand==6){document.getElementById("jinkuhonbun").innerHTML="下郷甚句を<br>うかれて 踊りゃ<br>朝になるのも<br>忘れがち";}
+       if(rand==7){document.getElementById("jinkuhonbun").innerHTML="盆の 十六日<br>なすの葉も踊る<br>子持ち女子も<br>出て踊れ";}
+       if(rand==8){document.getElementById("jinkuhonbun").innerHTML="月の 出会いと<br>約束したが<br>月は 早よ出て<br>森の中";}
+       if(rand==9){document.getElementById("jinkuhonbun").innerHTML="おまえ餅米<br>わしゃ色あづき<br>物日 物日に<br>出会います";}
+       if(rand==10){document.getElementById("jinkuhonbun").innerHTML="小野の観音様<br>三度とあらば<br>又も会いましょう<br>長坂で";}
+       if(rand==11){document.getElementById("jinkuhonbun").innerHTML="今年豊年<br>穂に穂が咲いて<br>道の子草に<br>米がなる";}
+       if(rand==12){document.getElementById("jinkuhonbun").innerHTML="大内　長坂<br>涙で登る<br>泣いた 涙で<br>沼となる";}
+       if(rand==13){document.getElementById("jinkuhonbun").innerHTML="誰か来たよだ<br>垣根の外に<br>泣いた鈴虫<br>音を止めた";}
+       if(rand==14){document.getElementById("jinkuhonbun").innerHTML="大内子安の<br>観音様よ<br>前の宿場を<br>目の下に";}
+       if(rand==15){document.getElementById("jinkuhonbun").innerHTML="大内峠は<br>涙で登る<br>泣いた涙が<br>沼となる";}
+       if(rand==16){document.getElementById("jinkuhonbun").innerHTML="曽根の松茸<br>何見て育つ<br>沢のあけびを<br>見て育つ";}
+       if(rand==17){document.getElementById("jinkuhonbun").innerHTML="私ゃろうそく<br>芯からとける<br>貴方にランプで<br>口ばかり";}
+       if(rand==18){document.getElementById("jinkuhonbun").innerHTML="可愛がられて<br>寝た夜もござる<br>泣いて明かした<br>夜もござる";}
+       if(rand==19){document.getElementById("jinkuhonbun").innerHTML="お天道様<br>車に乗せて<br>早く西の山<br>こさせたい";}
+       if(rand==20){document.getElementById("jinkuhonbun").innerHTML="若い娘と<br>青葉のたばこ<br>人の軒端(のきば)で<br>色を出す";}
+       if(rand==21){document.getElementById("jinkuhonbun").innerHTML="流し小窓<br>かや穂でつつく<br>悟りましたよ<br>手振り水";}
+       if(rand==22){document.getElementById("jinkuhonbun").innerHTML="私若いときゃ<br>木小屋が寝床<br>むしる布団で<br>下駄枕";}
+          if(rand==23){document.getElementById("jinkuhonbun").innerHTML="今宵一夜は<br>浦島太郎<br>あけて悔しい<br>玉手箱";}
+       if(rand==24){document.getElementById("jinkuhonbun").innerHTML="向かい小山の岩険(がんけ)のつつじ<br>およばなければ見て暮らす";}
+       if(rand==25){document.getElementById("jinkuhonbun").innerHTML="会うて帰れば<br>千里も一里<br>会わず帰れば<br>また千里";}
+       if(rand==26){document.getElementById("jinkuhonbun").innerHTML="昔思えば<br>今こそくやし<br>枠の糸なら<br>繰り戻す";}
+       if(rand==27){document.getElementById("jinkuhonbun").innerHTML="わしの心と<br>沼山原は<br>なんの木(気)もない<br>松（待つ）ばかり";}
+       if(rand==28){document.getElementById("jinkuhonbun").innerHTML="惚れてつまらぬ<br>他国の人に<br>すいはカラスの<br>泣き別れ";}
+       if(rand==29){document.getElementById("jinkuhonbun").innerHTML="だれか来たよだ<br>垣根の外に<br>泣いた鈴虫<br>　根を止めた";}
+       if(rand==30){document.getElementById("jinkuhonbun").innerHTML="わたしゃ旅(足袋)のもん(文)七文八文<br>どうせここ(九)のもんになられない";}
+       if(rand==31){document.getElementById("jinkuhonbun").innerHTML="大内宿場は<br>昔の名残<br>心とどめて<br>今もなお";}
+       if(rand==32){document.getElementById("jinkuhonbun").innerHTML="大内峠の<br>おさんの茶屋は<br>酒も高売り<br>高清水";}
+       if(rand==33){document.getElementById("jinkuhonbun").innerHTML="只見川では<br>木端(こっぱ)を流す<br>おれは大内の<br>銀流す";}
+      
+  }
+  {
+  let rand2 =Math.floor(Math.random()*35);
+  { 
+    if(rand2==0)
+    { document.getElementById("unsei_hyoji").innerHTML="今日もごはんが<br>五杯食べられる<br>でしょう<br>　大吉";}
+    if(rand2==1){document.getElementById("unsei_hyoji").innerHTML="帰りにネコに<br>振り向かれる<br>でしょう<br>　大吉";}
+    if(rand2==2){document.getElementById("unsei_hyoji").innerHTML="坂道で<br>ころばないだろう<br><br>　大吉";}
+     if(rand2==3){document.getElementById("unsei_hyoji").innerHTML="洗濯したシャツに<br>しわがない<br>でしょう<br>　大吉";}
+       if(rand2==4){document.getElementById("unsei_hyoji").innerHTML="缶コーヒーが<br>おいしいでしょう<br><br>　大吉";}
+       if(rand2==5){document.getElementById("unsei_hyoji").innerHTML="明日も<br>おめでたいでしょう<br><br>　大吉";}
+       if(rand2==6){document.getElementById("unsei_hyoji").innerHTML="君は名古屋に<br>行くでしょう<br><br>　大吉";}
+        if(rand2==7){document.getElementById("unsei_hyoji").innerHTML="明日の昼は<br>左折禁止でしょう<br><br>　大吉";}
+        if(rand2==8){document.getElementById("unsei_hyoji").innerHTML="コップの水は<br>まだ飲めるでしょう<br><br>　大吉";}
+        if(rand2==9){document.getElementById("unsei_hyoji").innerHTML="知り合いに<br>スーパーで会える<br>でしょう<br>　大吉";}
+        if(rand2==10){document.getElementById("unsei_hyoji").innerHTML="芸能人に<br>間違われるでしょう<br><br>　大吉";}
+        if(rand2==11){document.getElementById("unsei_hyoji").innerHTML="故郷から<br>トマトが郵送される<br>でしょう<br>　大吉";}
+        if(rand2==12){document.getElementById("unsei_hyoji").innerHTML="山の向こうから<br>トンボが飛んで来る<br>でしょう<br>　大吉";}
+        if(rand2==13){document.getElementById("unsei_hyoji").innerHTML="いつも<br>わけがわからない<br>でしょう<br>　大吉";}
+        if(rand2==14){document.getElementById("unsei_hyoji").innerHTML="イザベラ・バードに<br>間違われる<br>でしょう<br>　大吉";}
+        if(rand2==15){document.getElementById("unsei_hyoji").innerHTML="塔のへつりで<br>愉快な土産に出会う<br>でしょう<br>　大吉";}
+        if(rand2==16){document.getElementById("unsei_hyoji").innerHTML="ねぎそばの<br>ねぎが折れない<br>でしょう<br>　大吉";}
+        if(rand2==17){document.getElementById("unsei_hyoji").innerHTML="下郷の新しい<br>ゆるきゃらに<br>会えるでしょう<br>　大吉";}
+        if(rand2==18){document.getElementById("unsei_hyoji").innerHTML="意外なところで<br>いぶりがっこを見る<br>でしょう<br>　大吉";}
+        if(rand2==19){document.getElementById("unsei_hyoji").innerHTML="お腹が<br>減らないでしょう<br><br>　大吉";}
+        if(rand2==20){document.getElementById("unsei_hyoji").innerHTML="お風呂を毎日<br>沸かせるでしょう<br><br>　大吉";}
+        if(rand2==21){document.getElementById("unsei_hyoji").innerHTML="とにかく<br>幸せになる<br>でしょう<br>　大吉";}
+        if(rand2==22){document.getElementById("unsei_hyoji").innerHTML="いいかげん<br>書くことない<br>でしょう<br>　大吉";}
+        if(rand2==23){document.getElementById("unsei_hyoji").innerHTML="晩年は<br>ぼんやりと幸せ<br>でしょう<br>　大吉";}
+        if(rand2==24){document.getElementById("unsei_hyoji").innerHTML="転校は<br>なかったことに<br>なるでしょう<br>　大吉";}
+        if(rand2==25){document.getElementById("unsei_hyoji").innerHTML="一昨日よりも<br>一円玉が多い<br>でしょう<br>　大吉";}
+        if(rand2==26){document.getElementById("unsei_hyoji").innerHTML="キャンプは<br>曇りのち雨<br>でしょう<br>　大吉";}
+        if(rand2==27){document.getElementById("unsei_hyoji").innerHTML="クリームが<br>右端に<br>偏ります<br>　大吉";}
+        if(rand2==28){document.getElementById("unsei_hyoji").innerHTML="ズボンと<br>言ってしまう<br>でしょう<br>　大吉";}
+        if(rand2==29){document.getElementById("unsei_hyoji").innerHTML="時々寒く<br>時々温かい<br>でしょう<br>　大吉";}
+        if(rand2==30){document.getElementById("unsei_hyoji").innerHTML="ああああ<br>ああああ<br>あああ？<br>　大吉";}
+        if(rand2==31){document.getElementById("unsei_hyoji").innerHTML="後輩に<br>おごられる<br>でしょう<br>　大吉";}
+        if(rand2==32){document.getElementById("unsei_hyoji").innerHTML="パソコンが<br>軽くなる<br>でしょう<br>　大吉";}
+        if(rand2==33){document.getElementById("unsei_hyoji").innerHTML="革靴が<br>すぐ柔らかくなる<br>でしょう<br>　大吉";}
+        if(rand2==34){document.getElementById("unsei_hyoji").innerHTML="交通渋滞を<br>見かける<br>でしょう<br>　大吉";}
+    
+   }
+    let rand3 =Math.floor(Math.random()*13);
+  { 
+    if(rand3==0)
+    {document.getElementById("kaeru").src=kaeru_gazo[1].src;}
+    if(rand3==1){document.getElementById("kaeru").src=kaeru_gazo[2].src;}
+    if(rand3==2){document.getElementById("kaeru").src=kaeru_gazo[3].src;}
+     if(rand3==3){document.getElementById("kaeru").src=kaeru_gazo[4].src;}
+       if(rand3==4){document.getElementById("kaeru").src=kaeru_gazo[5].src;}
+       if(rand3==5){document.getElementById("kaeru").src=kaeru_gazo[6].src;}
+        if(rand3==6){document.getElementById("kaeru").src=kaeru_gazo[7].src;}
+   if(rand3==7){document.getElementById("kaeru").src=kaeru_gazo[8].src;}
+    if(rand3==8){document.getElementById("kaeru").src=kaeru_gazo[9].src;}
+    if(rand3==9){document.getElementById("kaeru").src=kaeru_gazo[10].src;}
+    if(rand3==10){document.getElementById("kaeru").src=kaeru_gazo[11].src;}
+  if(rand3==11){document.getElementById("kaeru").src=kaeru_gazo[12].src;}
+  if(rand3==12){document.getElementById("kaeru").src=kaeru_gazo[13].src;}
+    
+    
+    
+    
+  }
+    
+    
+   }
+  }
+  }
+  
+    </script>
+    
+    
+<audio id="omikujiOto" preload="auto">
+   <source src="img/se_maoudamashii_se_footstep01.mp3" type="audio/mp3">
+
+</audio>
+  </body>
+</html>
