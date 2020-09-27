@@ -178,7 +178,7 @@ left:0px;
   </head>
   <body>
 
-     <audio autoplay id="omikujiBGM" loop>
+     <audio id="omikujiBGM" loop>
    <source src="img/bgm_maoudamashii_ethnic32.m4a" type="audio/mp3">
    <source src="img/bgm_maoudamashii_ethnic32.ogg" type="audio/ogg">
     <p>残念、ご使用のブラウザでは音が出ません…</p>
@@ -194,8 +194,8 @@ left:0px;
 <div id="canvas_potision">
     <canvas id="canvas" width="1000" height="700"></canvas>
   <h2 id="jinkuhonbun">🖱画面をクリック<br>or<br>タッチ☝<br></h2>
-<h2 id="unsei_hyoji">♪タッチ　タッチ♪<br>
-  ♪ここにタッチ♪<br></h2>
+<h2 id="unsei_hyoji">キーワードが出るかも？<br>
+  お見逃しなく！<br></h2>
 <img id ="kaeru" src="img/kaeru(1).png">
   
   <h6 id="copyright">本作のイラストと音源<br>
@@ -356,7 +356,7 @@ kaeru_gazo[13].src = "img/hutamata.png";
   //ボタンを押すと甚句と運勢が別々にランダムで出力   
     function kakikae()
 {
-    let rand =Math.floor(Math.random()*17);
+    let rand =Math.floor(Math.random()*13);
   {    
     {if(rand==0)
     {document.getElementById("jinkuhonbun").innerHTML="花の盛りに<br>芯止められて <br>咲くに 咲かれぬ <br>タバコ花";
@@ -373,14 +373,10 @@ kaeru_gazo[13].src = "img/hutamata.png";
        if(rand==10){document.getElementById("jinkuhonbun").innerHTML="小野の観音様<br>三度とあらば<br>又も会いましょう<br>長坂で";}
        if(rand==11){document.getElementById("jinkuhonbun").innerHTML="今年豊年<br>穂に穂が咲いて<br>道の子草に<br>米がなる";}
        if(rand==12){document.getElementById("jinkuhonbun").innerHTML="大内　長坂<br>涙で登る<br>泣いた 涙で<br>沼となる";}
-       if(rand==13){document.getElementById("jinkuhonbun").innerHTML="キーワード<br>一文字目<br><br>『ば』";}       
-       if(rand==14){document.getElementById("jinkuhonbun").innerHTML="キーワード<br>二文字目<br><br>『ん』";}       
-       if(rand==15){document.getElementById("jinkuhonbun").innerHTML="キーワード<br>三文字目<br><br>『だ』";}
-      if(rand==16){document.getElementById("jinkuhonbun").innerHTML="キーワード<br>四文字目<br><br>『な』";}
       
   }
   {
-  let rand2 =Math.floor(Math.random()*35);
+  let rand2 =Math.floor(Math.random()*39);
   { 
     if(rand2==0)
     { document.getElementById("unsei_hyoji").innerHTML="今日もごはんが<br>五杯食べられる<br>でしょう<br>　大吉";}
@@ -418,7 +414,14 @@ kaeru_gazo[13].src = "img/hutamata.png";
         if(rand2==32){document.getElementById("unsei_hyoji").innerHTML="パソコンが<br>軽くなる<br>でしょう<br>　大吉";}
         if(rand2==33){document.getElementById("unsei_hyoji").innerHTML="革靴が<br>すぐ柔らかくなる<br>でしょう<br>　大吉";}
         if(rand2==34){document.getElementById("unsei_hyoji").innerHTML="交通渋滞を<br>見かける<br>でしょう<br>　大吉";}
-    
+        if(rand2==35){document.getElementById("unsei_hyoji").innerHTML="キーワードは！<br>『（現在作成中）』<br>でしょう<br>　大吉";}
+        if(rand2==36){document.getElementById("unsei_hyoji").innerHTML="キーワードは！<br>『（現在作成中）』<br>でしょう<br>　大吉";}
+        if(rand2==37){document.getElementById("unsei_hyoji").innerHTML="キーワードは！<br>『（現在作成中）』<br>でしょう<br>　大吉";}
+        if(rand2==38){document.getElementById("unsei_hyoji").innerHTML="キーワードは！<br>『（現在作成中）』<br>でしょう<br>　大吉";}
+  
+      
+      
+      
    }
     let rand3 =Math.floor(Math.random()*13);
   { 
